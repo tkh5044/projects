@@ -22,7 +22,6 @@ pd.options.display.max_colwidth = 60
 
 ## READ IN RESULTS OF LAST API REQUEST
 old = pd.read_csv('~/Documents/projects/crypto/exported_csvs/cryptopanic-api-results.csv', encoding='utf-8')
-print (old.shape)
 
 def get_cryptopanic_data(old_df):
     df = pd.DataFrame(columns=['published_at', 'important', 'positive', 'negative', 'BTC', 'ETH', 'XRP', 'BCH', 'LTC',
@@ -65,7 +64,6 @@ def get_cryptopanic_data(old_df):
     df = pd.concat([df, old_df])
     df.drop_duplicates(inplace=True)
     df.reset_index(drop=True, inplace=True)
-    print (df.shape)
     
     return df
 
@@ -99,7 +97,7 @@ def drop_duplicate_titles(df, new_count, unique_new_titles):
     
     df.drop(all_drop_indices, inplace=True)
     assert len(df) == (len(old) + unique_new_titles)  # checks if size of df is correct
-    print (len(df))
+    print ('Total number of records:', len(df))
     
     return df
 
