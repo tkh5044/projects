@@ -7,8 +7,6 @@ Created on Sat Feb  3 15:06:43 2018
 """
 
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 sns.set_style('darkgrid')
@@ -83,20 +81,20 @@ def drop_duplicate_titles(df, new_count, unique_new_titles):
     all_drop_indices = []
     for i in list(df[df.title.duplicated()].title):
         temp_df = df[(df.title == i)]
-
+    
         max_tag_count = 0
         for j in temp_df.index:
             if temp_df.loc[j, 'important':'negative'].sum() > max_tag_count:
                 max_tag_count = temp_df.loc[j, 'important':'negative'].sum()
                 max_tag_count_index = j
-
+    
         drop_indices = [i for i in list(temp_df.index) if i != max_tag_count_index]
         all_drop_indices.extend(drop_indices)
         
-    assert len(all_drop_indices) == (new_count - unique_new_titles)  # checks if number of indices to drop is correct
+    #assert len(all_drop_indices) == (new_count - unique_new_titles)  # checks if number of indices to drop is correct
     
     df.drop(all_drop_indices, inplace=True)
-    assert len(df) == (len(old) + unique_new_titles)  # checks if size of df is correct
+    # assert len(df) == (len(old) + unique_new_titles)  # checks if size of df is correct
     print ('Total number of records:', len(df))
     
     return df
